@@ -1,0 +1,15 @@
+gunicorn
+eventlet
+requests
+flask
+pymongo
+libgen_api
+flask_cors
+pymupdf
+ebooklib
+tqdm
+celery
+python-dotenv
+redis
+Flask-SocketIO
+openai
