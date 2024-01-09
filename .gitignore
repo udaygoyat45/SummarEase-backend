@@ -2,3 +2,8 @@ venv
 Dockerfile
 notes.txt
 data/*
+
+app/__pycache__
+app/config/__pycache__
+app/controllers/__pycache__
+app/services/__pycache__
