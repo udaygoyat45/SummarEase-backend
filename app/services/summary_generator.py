@@ -54,7 +54,7 @@ def create_chunks(long_text, chunk_size=1000):
 
 
 @shared_task(bind=True, base=AbortableTask)
-def generate_summary(self, content, book_id, user_id):
+def generate_summary(self, book_id, user_id):
     curr_book = db.books.find_one({'ID': book_id})
     if curr_book is None:
         socketio.emit('book_progress', {'error': 'Book not found'}, to=user_id)
@@ -75,7 +75,7 @@ def generate_summary(self, content, book_id, user_id):
 
 
     logger.info('GENERATE SUMMARY WAS CALLED')
-    book_chunks = create_chunks(content, chunk_size=7000)
+    book_chunks = create_chunks(curr_book['text'], chunk_size=7000)
     summary_chunks = []
 
     socketio.emit('book_progress', {'message': 'Starting to summarize the book...', 'progress': 50}, to=user_id)
