@@ -53,8 +53,8 @@ def create_chunks(long_text, chunk_size=1000):
     return chunks
 
 
-@shared_task(bind=True, base=AbortableTask)
-def generate_summary(self, book_id, user_id):
+@shared_task(base=AbortableTask)
+def generate_summary(book_id, user_id):
     curr_book = db.books.find_one({'ID': book_id})
     if curr_book is None:
         socketio.emit('book_progress', {'error': 'Book not found'}, to=user_id)

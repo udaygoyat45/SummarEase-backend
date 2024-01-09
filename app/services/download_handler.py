@@ -70,8 +70,8 @@ def download_pdf(pdf_link, user_id):
         return text_content
     
 
-@shared_task(bind=True, base=AbortableTask)
-def download_book(self, links, book_id, user_id):
+@shared_task(base=AbortableTask)
+def download_book(links, book_id, user_id):
     curr_book = db.books.find_one({'ID': book_id})
     if curr_book is None:
         socketio.emit('book_progress', {'error': 'Book not found. Please try again later.'}, room=user_id)
